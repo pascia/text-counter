@@ -59,8 +59,6 @@ print(selectedfile)
 #sort method
 def sortbydata(x):
   return (x[1])
-def sortbylen(x):
-  return (len(x[0]))
 
 #read file
 with open(selectedfile, 'r') as fd:
@@ -97,7 +95,7 @@ with open(selectedfile, 'r') as fd:
     #print datas
     with open(f"results_{selectedfile}", 'w') as fw:
         words=words[1:]
-        words.sort(key=sortbydata)
+        words.sort(key=sortbydata)#sort
         words=words[::-1]
         for i in words[1:]:
             print(i[0].ljust(15)+f"({str(i[1]).zfill(2)})",end=":")
