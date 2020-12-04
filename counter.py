@@ -53,6 +53,12 @@ while selectedfile is None: #selecting file
     elif selectedfile is None and len(sel) != 1:
         print("Aranması için hiçbir şey girmediniz.")
 print(selectedfile)
-    
-# with open(selectedfile, 'r') as fd:
-    # print(
+
+#read file
+with open(selectedfile, 'r') as fd:
+    paragraph = 0
+    for i in fd.read().split("\n"):
+        if any(c.isalpha() for c in i):
+            paragraph+=1
+    print(paragraph)
+           
