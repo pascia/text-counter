@@ -56,6 +56,12 @@ while selectedfile is None: #selecting file
         print("Aranması için hiçbir şey girmediniz.")
 print(selectedfile)
 
+#sort method
+def sortbydata(x):
+  return (x[1])
+def sortbylen(x):
+  return (len(x[0]))
+
 #read file
 with open(selectedfile, 'r') as fd:
     paragraph = 0
@@ -88,5 +94,13 @@ with open(selectedfile, 'r') as fd:
                         elif c == len(words)-1:
                             words.append([s.lower(),1])
                             break
-    print(words)
-    print(f"{paragraph}, {sentence}, {word}, {letter}")
+    #print datas
+    words=words[1:]
+    words.sort(key=sortbydata)
+    words=words[::-1]
+    for i in words[1:]:
+        print(i[0].ljust(15)+f"({str(i[1]).zfill(2)})",end=":")
+        for a in range(i[1]):
+            print("|", end="")
+        print()
+    print(f"Bu metin {paragraph} Paragraf, {sentence} Cümle, {word} Kelime ve {letter} Harf içerir.")
