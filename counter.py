@@ -62,7 +62,7 @@ with open(selectedfile, 'r') as fd:
     sentence = 0
     word = 0
     letter = 0
-    words = []
+    words = [["test",1]]
     for i in fd.read().split("\n"):
         if any(c.isalpha() for c in i):
             paragraph+=1
@@ -73,16 +73,20 @@ with open(selectedfile, 'r') as fd:
                     letter += len(s)
                     for c in range(len(words)):
                         if words[c][0] == s.lower():
-                            words.append([s.lower(),words[c][1]+1])
-                        else:
+                            words[c]=[s.lower(),words[c][1]+1]
+                            break
+                        elif c == len(words)-1:
                             words.append([s.lower(),1])
-                elif s[-1] in string.punctuation:
+                            break
+                elif s[-1] in string.punctuation and len(s)!=1:
                     letter += len(s)-1
+                    s=s[:-1]
                     for c in range(len(words)):
                         if words[c][0] == s.lower():
-                            words.append([s[:-1].lower(),words[c][2]+1])
-                        else:
-                            words.append([s[:-1].lower(),1])
+                            words[c]=[s.lower(),words[c][1]+1]
+                            break
+                        elif c == len(words)-1:
+                            words.append([s.lower(),1])
+                            break
     print(words)
     print(f"{paragraph}, {sentence}, {word}, {letter}")
-           
