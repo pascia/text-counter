@@ -72,6 +72,11 @@ with open(selectedfile, 'r') as fd:
             paragraph+=1
             sentence+=len(i.split("."))
             for s in i.split(" "):
+                for x in [".",",","?","!"]:
+                    if len(s.split(x)) == 2 and len(s.split(x)[1]) != 0:
+                        words.append([s.split(x)[1].lower(),1])
+                        s = s.split(x)[0]
+                        word += 1
                 word += 1
                 if s[-1] in string.ascii_letters+string.digits:
                     letter += len(s)
@@ -87,6 +92,7 @@ with open(selectedfile, 'r') as fd:
                     s=s[:-1]
                     for c in range(len(words)):
                         if words[c][0] == s.lower():
+                            print(c)
                             words[c]=[s.lower(),words[c][1]+1]
                             break
                         elif c == len(words)-1:
@@ -97,7 +103,7 @@ with open(selectedfile, 'r') as fd:
         words=words[1:]
         words.sort(key=sortbydata)#sort
         words=words[::-1]
-        for i in words[1:]:
+        for i in words[:]:
             print(i[0].ljust(15)+f"({str(i[1]).zfill(2)})",end=":")
             fw.write(i[0].ljust(15)+f"({str(i[1]).zfill(2)}):")
             for a in range(i[1]):
