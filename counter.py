@@ -109,4 +109,5 @@ with open(selectedfile, 'r') as fd:
             fw.write("\n")
         print(f"Bu metin {paragraph} Paragraf, {sentence} Cümle, {word} Kelime ve {letter} Harf içerir.")
         fw.write(f"Bu metin {paragraph} Paragraf, {sentence} Cümle, {word} Kelime ve {letter} Harf içerir.\n")
+        print("Metin kaydedildi.")
         
