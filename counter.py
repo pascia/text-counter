@@ -1,6 +1,8 @@
 import os
+import string
 dosyalar = []
 selectedfile = None
+
 output = os.popen("dir").read().split('\n') #send a command 'dir'
 print(f"\nDosya yolu: {output[3].split(' ')[-1]}") #print file direction
 print("Bu dosya yolunda bulunan dosyalar şunlardır:")
@@ -57,8 +59,30 @@ print(selectedfile)
 #read file
 with open(selectedfile, 'r') as fd:
     paragraph = 0
+    sentence = 0
+    word = 0
+    letter = 0
+    words = []
     for i in fd.read().split("\n"):
         if any(c.isalpha() for c in i):
             paragraph+=1
-    print(paragraph)
+            sentence+=len(i.split("."))
+            for s in i.split(" "):
+                word += 1
+                if s[-1] in string.ascii_letters+string.digits:
+                    letter += len(s)
+                    for c in range(len(words)):
+                        if words[c][0] == s.lower():
+                            words.append([s.lower(),words[c][1]+1])
+                        else:
+                            words.append([s.lower(),1])
+                elif s[-1] in string.punctuation:
+                    letter += len(s)-1
+                    for c in range(len(words)):
+                        if words[c][0] == s.lower():
+                            words.append([s[:-1].lower(),words[c][2]+1])
+                        else:
+                            words.append([s[:-1].lower(),1])
+    print(words)
+    print(f"{paragraph}, {sentence}, {word}, {letter}")
            
