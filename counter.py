@@ -95,12 +95,18 @@ with open(selectedfile, 'r') as fd:
                             words.append([s.lower(),1])
                             break
     #print datas
-    words=words[1:]
-    words.sort(key=sortbydata)
-    words=words[::-1]
-    for i in words[1:]:
-        print(i[0].ljust(15)+f"({str(i[1]).zfill(2)})",end=":")
-        for a in range(i[1]):
-            print("|", end="")
-        print()
-    print(f"Bu metin {paragraph} Paragraf, {sentence} Cümle, {word} Kelime ve {letter} Harf içerir.")
+    with open(f"results_{selectedfile}", 'w') as fw:
+        words=words[1:]
+        words.sort(key=sortbydata)
+        words=words[::-1]
+        for i in words[1:]:
+            print(i[0].ljust(15)+f"({str(i[1]).zfill(2)})",end=":")
+            fw.write(i[0].ljust(15)+f"({str(i[1]).zfill(2)}):")
+            for a in range(i[1]):
+                print("|", end="")
+                fw.write("|")
+            print()
+            fw.write("\n")
+        print(f"Bu metin {paragraph} Paragraf, {sentence} Cümle, {word} Kelime ve {letter} Harf içerir.")
+        fw.write(f"Bu metin {paragraph} Paragraf, {sentence} Cümle, {word} Kelime ve {letter} Harf içerir.\n")
+        
